@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import cybercityBg from '../assets/cybercity-bg.jpg';
 import { audioSynth } from '../services/audioSynth';
 import { GameMode, ExpenseItem, DecisionBucket } from '../types/expense';
 import { SAMPLE_DATASETS } from '../services/sampleData';
@@ -407,7 +408,7 @@ export const CybercityMenu: React.FC<CybercityMenuProps> = ({
         chromaticAberration ? 'filter contrast-110 saturate-125' : ''
       }`}
       style={{
-        backgroundImage: `url('/cybercity-bg.jpg')`,
+        backgroundImage: `url(${cybercityBg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center 40%',
         backgroundRepeat: 'no-repeat',
