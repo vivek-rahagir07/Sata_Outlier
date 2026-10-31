@@ -40,14 +40,14 @@ function calculateAuditStats(expenses: ExpenseItem[], streak = 0, scoreXP = 0): 
   return {
     totalCount: expenses.length,
     auditedCount,
-    totalAmount,
-    auditedAmount,
-    taxDeductibleAmount,
-    estimatedTaxSavings: taxDeductibleAmount * 0.30, // 30% average deduction rate
+    totalAmount: Number(totalAmount.toFixed(2)),
+    auditedAmount: Number(auditedAmount.toFixed(2)),
+    taxDeductibleAmount: Number(taxDeductibleAmount.toFixed(2)),
+    estimatedTaxSavings: Number((taxDeductibleAmount * 0.30).toFixed(2)), // 30% average deduction rate
     vampireSubsCount,
-    annualRecurringSavings,
+    annualRecurringSavings: Number(annualRecurringSavings.toFixed(2)),
     suspiciousCount,
-    suspiciousAmount,
+    suspiciousAmount: Number(suspiciousAmount.toFixed(2)),
     currentStreak: streak,
     highestStreak: Math.max(streak, 10),
     scoreXP,
@@ -132,5 +132,56 @@ describe('Audit Calculations & Financial Metrics', () => {
 
     const stats = calculateAuditStats(completedExpenses, 7, 1200);
     expect(stats.rank).toBe('S+');
+  });
+
+  it('handles empty expense arrays gracefully with 0 totals and rank C', () => {
+    const stats = calculateAuditStats([], 0, 0);
+    expect(stats.totalCount).toBe(0);
+    expect(stats.auditedCount).toBe(0);
+    expect(stats.totalAmount).toBe(0);
+    expect(stats.rank).toBe('C');
+  });
+
+  it('handles annual frequency vampire subscription multiplier (1x instead of 12x)', () => {
+    const annualSub: ExpenseItem[] = [
+      {
+        id: 'ann_1',
+        date: '2026-10-01',
+        merchant: 'Annual Domain Renewal',
+        amount: 120,
+        status: 'audited',
+        decision: 'vampire_cancel',
+        recurringFrequency: 'annual',
+        suggestedBucket: 'vampire_cancel',
+        suggestedReason: 'Abandoned side project domain'
+      }
+    ];
+
+    const stats = calculateAuditStats(annualSub, 1, 150);
+    expect(stats.vampireSubsCount).toBe(1);
+    expect(stats.annualRecurringSavings).toBe(120); // 120 * 1 (not 120 * 12)
+  });
+
+  it('accurately evaluates rank tiers (B, A, S)', () => {
+    const createItems = (audited: number, total: number): ExpenseItem[] => {
+      const items: ExpenseItem[] = [];
+      for (let i = 0; i < total; i++) {
+        items.push({
+          id: `item_${i}`,
+          date: '2026-10-01',
+          merchant: `Merchant ${i}`,
+          amount: 10,
+          status: i < audited ? 'audited' : 'pending',
+          decision: i < audited ? 'personal' : undefined,
+          suggestedBucket: 'personal',
+          suggestedReason: 'Personal expense'
+        });
+      }
+      return items;
+    };
+
+    expect(calculateAuditStats(createItems(3, 10)).rank).toBe('B'); // 30%
+    expect(calculateAuditStats(createItems(6, 10)).rank).toBe('A'); // 60%
+    expect(calculateAuditStats(createItems(9, 10)).rank).toBe('S'); // 90%
   });
 });

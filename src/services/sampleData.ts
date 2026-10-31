@@ -460,11 +460,40 @@ export const SAMPLE_DATASETS: Record<string, { name: string; description: string
 
 export function sanitizeField(input: string): string {
   if (!input) return '';
-  const clean = input.replace(/<[^>]*>?/gm, '').trim();
+  // Strip <script>...</script> tags and their contents
+  let clean = input.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+  // Strip any remaining HTML tags
+  clean = clean.replace(/<[^>]*>?/gm, '').trim();
+  // Neutralize CSV formula injections
   if (/^[=+\-@\t\r]/.test(clean)) {
     return `'${clean}`;
   }
   return clean;
+}
+
+export function splitCsvRow(rowStr: string): string[] {
+  const result: string[] = [];
+  let current = '';
+  let inQuotes = false;
+
+  for (let i = 0; i < rowStr.length; i++) {
+    const char = rowStr[i];
+    if (char === '"') {
+      if (inQuotes && rowStr[i + 1] === '"') {
+        current += '"';
+        i++;
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if (char === ',' && !inQuotes) {
+      result.push(current.trim());
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+  result.push(current.trim());
+  return result;
 }
 
 export function parseCSVToExpenses(csvText: string): ExpenseItem[] {
@@ -472,7 +501,7 @@ export function parseCSVToExpenses(csvText: string): ExpenseItem[] {
   if (lines.length < 2) return [];
 
   // Parse header
-  const header = lines[0].split(',').map(h => h.trim().toLowerCase().replace(/['"]/g, ''));
+  const header = splitCsvRow(lines[0]).map(h => h.toLowerCase().replace(/['"]/g, ''));
   
   let dateIdx = header.findIndex(h => h.includes('date') || h.includes('time'));
   let merchantIdx = header.findIndex(h => h.includes('merchant') || h.includes('desc') || h.includes('payee') || h.includes('name') || h.includes('title'));
@@ -486,8 +515,7 @@ export function parseCSVToExpenses(csvText: string): ExpenseItem[] {
   const items: ExpenseItem[] = [];
 
   for (let i = 1; i < lines.length; i++) {
-    const row = lines[i].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || lines[i].split(',');
-    const cleanRow = row.map(cell => cell.trim().replace(/^"|"$/g, ''));
+    const cleanRow = splitCsvRow(lines[i]);
 
     if (cleanRow.length <= Math.max(dateIdx, merchantIdx, amountIdx)) continue;
 
@@ -500,7 +528,8 @@ export function parseCSVToExpenses(csvText: string): ExpenseItem[] {
     const merchant = sanitizeField(rawMerchant);
     const originalCategory = sanitizeField(rawCategory);
 
-    const numericClean = rawAmount.replace(/[^0-9.-]+/g, '');
+    // Clean currency signs, commas, whitespace
+    const numericClean = rawAmount.replace(/[$€£¥,]/g, '').trim();
     const parsedAmount = Math.abs(parseFloat(numericClean));
     const amount = isFinite(parsedAmount) && parsedAmount > 0 ? Number(parsedAmount.toFixed(2)) : 0;
 

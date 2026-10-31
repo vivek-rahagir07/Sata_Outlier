@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>CYBERCITY Edition 2.0 // Cyberpunk Interface & Chore Slayer</title>
   
   <!-- Cyberpunk Fonts: Orbitron, Mr Dafoe (script), Chakra Petch, Rajdhani -->
@@ -1590,7 +1592,11 @@
     const audioBtn = document.getElementById('btn-audio-toggle');
     audioBtn.addEventListener('click', () => {
       audio.isMuted = !audio.isMuted;
-      audioBtn.innerHTML = audio.isMuted ? '🔇 <span>AUDIO: OFF</span>' : '🔊 <span>AUDIO: ON</span>';
+      audioBtn.textContent = '';
+      audioBtn.append(audio.isMuted ? '🔇 ' : '🔊 ');
+      const span = document.createElement('span');
+      span.textContent = audio.isMuted ? 'AUDIO: OFF' : 'AUDIO: ON';
+      audioBtn.appendChild(span);
       if (!audio.isMuted) audio.select();
     });
 
@@ -1598,7 +1604,11 @@
     synthBtn.addEventListener('click', () => {
       const active = audio.toggleSynth();
       synthBtn.classList.toggle('active-synth', active);
-      synthBtn.innerHTML = active ? '🎵 <span>SYNTH: ON</span>' : '🎵 <span>SYNTH: OFF</span>';
+      synthBtn.textContent = '';
+      synthBtn.append('🎵 ');
+      const span = document.createElement('span');
+      span.textContent = active ? 'SYNTH: ON' : 'SYNTH: OFF';
+      synthBtn.appendChild(span);
     });
   </script>
 </body>

@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { undoManager, UndoRecord } from '../../server/undoManager';
 
-describe('UndoManager Journal System', () => {
+describe('UndoManager Journal System & Reversible Audit Logging', () => {
   beforeEach(() => {
     undoManager.clear();
   });
@@ -38,5 +38,40 @@ describe('UndoManager Journal System', () => {
     undoManager.clear();
     expect(undoManager.getHistoryCount()).toBe(0);
   });
-});
 
+  it('returns failure message when attempting to undo non-existent record ID', () => {
+    const result = undoManager.undoRecord('non_existent_id_999');
+    expect(result.success).toBe(false);
+    expect(result.message).toContain('not found');
+  });
+
+  it('handles restore_file_content safely when file path or content is missing', () => {
+    undoManager.record({
+      id: 'rec_invalid',
+      choreType: 'code',
+      timestamp: Date.now(),
+      summary: 'Broken record',
+      revertType: 'restore_file_content',
+      revertData: {}
+    });
+
+    const result = undoManager.undoRecord('rec_invalid');
+    expect(result.success).toBe(false);
+    expect(result.message).toContain('missing path or content');
+  });
+
+  it('maintains strict FIFO cap of 1000 records without memory leaks', () => {
+    for (let i = 0; i < 1050; i++) {
+      undoManager.record({
+        id: `rec_${i}`,
+        choreType: 'code',
+        timestamp: Date.now(),
+        summary: `Action ${i}`,
+        revertType: 'restore_file_content',
+        revertData: {}
+      });
+    }
+
+    expect(undoManager.getHistoryCount()).toBe(1000);
+  });
+});
