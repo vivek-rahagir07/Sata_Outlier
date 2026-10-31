@@ -1,0 +1,246 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-orbitron: 'Orbitron', monospace, sans-serif;
+    --font-code: 'Fira Code', monospace;
+    --font-script: 'Mr Dafoe', cursive;
+    --font-menu: 'Rajdhani', 'Chakra Petch', sans-serif;
+  }
+}
+
+.font-arcade {
+  font-family: var(--font-orbitron);
+}
+
+.font-mono-code {
+  font-family: var(--font-code);
+}
+
+.font-cyber-script {
+  font-family: var(--font-script);
+}
+
+.font-cyber-menu {
+  font-family: var(--font-menu);
+}
+
+/* Sata Brand & Glow System */
+.sata-logo-text {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  background: linear-gradient(135deg, #ffffff 0%, #38e8ff 50%, #d946ef 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 16px rgba(0, 240, 255, 0.7));
+}
+
+.glow-btn-play {
+  background: linear-gradient(90deg, #9333ea 0%, #d946ef 50%, #a855f7 100%);
+  box-shadow: 0 0 25px rgba(217, 70, 239, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.3);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glow-btn-play:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 35px rgba(217, 70, 239, 0.9), inset 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Card Glows */
+.card-glow-pink {
+  border: 1.5px solid rgba(236, 72, 153, 0.8);
+  box-shadow: 0 0 20px rgba(236, 72, 153, 0.35), inset 0 0 15px rgba(236, 72, 153, 0.15);
+}
+.card-glow-cyan {
+  border: 1.5px solid rgba(6, 182, 212, 0.8);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.35), inset 0 0 15px rgba(6, 182, 212, 0.15);
+}
+.card-glow-green {
+  border: 1.5px solid rgba(34, 197, 94, 0.8);
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.35), inset 0 0 15px rgba(34, 197, 94, 0.15);
+}
+.card-glow-amber {
+  border: 1.5px solid rgba(245, 158, 11, 0.8);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.35), inset 0 0 15px rgba(245, 158, 11, 0.15);
+}
+
+/* Glassmorphic Container */
+.glass-sata-panel {
+  background: rgba(11, 15, 29, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+/* Scanlines overlay */
+.scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.28) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+}
+
+/* Cybercity Specific Aesthetic Styles */
+.cybercity-logo {
+  font-family: 'Orbitron', sans-serif;
+  font-style: italic;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #ff3bb2 30%,
+    #e60067 55%,
+    #00f0ff 85%,
+    #ffffff 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 12px rgba(255, 0, 128, 0.75))
+          drop-shadow(0 0 35px rgba(0, 240, 255, 0.6));
+  position: relative;
+  display: inline-block;
+}
+
+/* Laser horizontal slash across the logo */
+.cybercity-logo::after {
+  content: '';
+  position: absolute;
+  top: 48%;
+  left: -2%;
+  right: -2%;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(0,240,255,1), rgba(255,0,128,0.9), transparent);
+  box-shadow: 0 0 8px #00f0ff, 0 0 16px #ff007f;
+  pointer-events: none;
+}
+
+.edition-script {
+  font-family: 'Mr Dafoe', cursive;
+  color: #ffffff;
+  text-shadow: 
+    0 0 5px rgba(255, 255, 255, 0.9),
+    0 0 12px rgba(0, 240, 255, 0.7),
+    0 0 25px rgba(217, 70, 239, 0.5);
+  transform: rotate(-5deg);
+  display: inline-block;
+}
+
+/* Glassmorphic Cyber HUD Panel on the Left */
+.cyber-hud-glass {
+  background: linear-gradient(
+    90deg,
+    rgba(15, 10, 35, 0.75) 0%,
+    rgba(25, 12, 50, 0.6) 50%,
+    rgba(35, 15, 65, 0.35) 85%,
+    transparent 100%
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-right: 1px solid rgba(0, 240, 255, 0.25);
+  box-shadow: 10px 0 35px rgba(0, 0, 0, 0.6);
+}
+
+/* Active Menu Item Pill - exactly matches the reference image */
+.cyber-menu-active {
+  background: linear-gradient(
+    90deg,
+    rgba(147, 51, 234, 0.55) 0%,
+    rgba(168, 85, 247, 0.4) 50%,
+    rgba(126, 34, 206, 0.3) 100%
+  );
+  border: 1.5px solid rgba(0, 240, 255, 0.85);
+  box-shadow: 
+    0 0 20px rgba(0, 240, 255, 0.4),
+    inset 0 0 15px rgba(168, 85, 247, 0.3);
+  color: #ffffff;
+  text-shadow: 
+    0 0 8px rgba(255, 255, 255, 0.9),
+    0 0 16px rgba(0, 240, 255, 0.8);
+}
+
+/* Inactive Menu Item styling */
+.cyber-menu-inactive {
+  color: #38e8ff;
+  text-shadow: 
+    0 0 10px rgba(56, 232, 255, 0.85),
+    0 0 25px rgba(56, 232, 255, 0.4);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cyber-menu-inactive:hover {
+  color: #ffffff;
+  text-shadow: 
+    0 0 12px rgba(255, 255, 255, 1),
+    0 0 25px rgba(0, 240, 255, 0.9);
+  transform: translateX(8px);
+}
+
+/* Retro CRT & Neon Styling */
+.neon-glow-cyan {
+  text-shadow: 0 0 10px rgba(6, 182, 212, 0.7), 0 0 20px rgba(6, 182, 212, 0.4);
+}
+
+.neon-glow-pink {
+  text-shadow: 0 0 10px rgba(236, 72, 153, 0.7), 0 0 20px rgba(236, 72, 153, 0.4);
+}
+
+.neon-border-cyan {
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.35), inset 0 0 15px rgba(6, 182, 212, 0.15);
+}
+
+.neon-border-pink {
+  box-shadow: 0 0 15px rgba(236, 72, 153, 0.35), inset 0 0 15px rgba(236, 72, 153, 0.15);
+}
+
+.scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.3) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+}
+
+@keyframes cyberGlitch {
+  0% { transform: translate(0) }
+  20% { transform: translate(-2px, 2px) }
+  40% { transform: translate(-2px, -2px) }
+  60% { transform: translate(2px, 2px) }
+  80% { transform: translate(2px, -2px) }
+  100% { transform: translate(0) }
+}
+
+.animate-cyber-glitch {
+  animation: cyberGlitch 0.3s ease-in-out infinite;
+}
+
+/* Custom modern scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #06b6d4;
+}
