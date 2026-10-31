@@ -8,9 +8,7 @@ import {
   Clock,
   RotateCcw,
   BarChart3,
-  ChevronRight,
-  Sparkles,
-  Zap
+  ChevronRight
 } from 'lucide-react';
 
 interface LevelCompleteModalProps {
@@ -43,30 +41,36 @@ export const LevelCompleteModal: React.FC<LevelCompleteModalProps> = ({
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 animate-in fade-in duration-200">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="level-complete-title"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 animate-in fade-in duration-200"
+    >
       <div className="relative w-full max-w-xl rounded-3xl border border-purple-500/50 bg-gradient-to-b from-[#0e0720] via-[#090b17] to-[#060814] p-8 shadow-[0_0_60px_rgba(168,85,247,0.35)] text-center">
         
-        {/* Title & Glowing 3 Stars (Matching Screen 7 in image) */}
+        {/* Title */}
         <div className="mb-2 inline-block">
-          <h2 className="font-arcade text-3xl sm:text-4xl font-black italic tracking-wider text-white drop-shadow-[0_0_15px_rgba(217,70,239,0.8)]">
+          <h2 id="level-complete-title" className="font-arcade text-3xl sm:text-4xl font-black italic tracking-wider text-white drop-shadow-[0_0_15px_rgba(217,70,239,0.8)]">
             LEVEL COMPLETE!
           </h2>
         </div>
 
         {/* 3 Glowing Gold Stars */}
-        <div className="mb-6 flex justify-center gap-3">
+        <div className="mb-6 flex justify-center gap-3" aria-label="3 Star Rating Awarded">
           {[1, 2, 3].map((star) => (
             <div
               key={star}
               className="flex h-12 w-12 items-center justify-center rounded-2xl border border-amber-400/60 bg-amber-950/40 text-amber-300 shadow-[0_0_20px_rgba(251,191,36,0.6)] animate-pulse"
               style={{ animationDelay: `${star * 200}ms` }}
+              aria-hidden="true"
             >
               <Star className="h-7 w-7 fill-amber-300 text-amber-300" />
             </div>
           ))}
         </div>
 
-        {/* Grid Stats & Real Impact Card (Matching Screen 7) */}
+        {/* Grid Stats & Real Impact Card */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left mb-8">
           
           {/* Left Performance Stats */}
@@ -133,11 +137,12 @@ export const LevelCompleteModal: React.FC<LevelCompleteModalProps> = ({
           </div>
         </div>
 
-        {/* Action Buttons: Play Again, View Dashboard, Next Level (Matching Screen 7) */}
+        {/* Action Buttons: Play Again, View Dashboard, Next Level */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 font-arcade text-xs font-bold">
           <button
             onClick={onPlayAgain}
-            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-900 px-6 py-3 text-slate-300 hover:bg-slate-800 hover:text-white transition"
+            aria-label="Play Level Again"
+            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-900 px-6 py-3 text-slate-300 hover:bg-slate-800 hover:text-white transition focus:outline-none focus:ring-2 focus:ring-purple-400"
           >
             <RotateCcw className="h-4 w-4" />
             <span>Play Again</span>
@@ -145,7 +150,8 @@ export const LevelCompleteModal: React.FC<LevelCompleteModalProps> = ({
 
           <button
             onClick={onViewDashboard}
-            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-cyan-500/50 bg-cyan-950/40 px-6 py-3 text-cyan-300 hover:bg-cyan-900/60 transition shadow-[0_0_15px_rgba(6,182,212,0.3)]"
+            aria-label="View Audit Dashboard"
+            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-cyan-500/50 bg-cyan-950/40 px-6 py-3 text-cyan-300 hover:bg-cyan-900/60 transition shadow-[0_0_15px_rgba(6,182,212,0.3)] focus:outline-none focus:ring-2 focus:ring-cyan-400"
           >
             <BarChart3 className="h-4 w-4" />
             <span>View Dashboard</span>
@@ -153,7 +159,8 @@ export const LevelCompleteModal: React.FC<LevelCompleteModalProps> = ({
 
           <button
             onClick={onNextLevel}
-            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 px-7 py-3 text-white shadow-[0_0_20px_rgba(217,70,239,0.5)] hover:scale-105 active:scale-95 transition"
+            aria-label="Proceed to Next Level"
+            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 px-7 py-3 text-white shadow-[0_0_20px_rgba(217,70,239,0.5)] hover:scale-105 active:scale-95 transition focus:outline-none focus:ring-2 focus:ring-pink-400"
           >
             <span>Next Level</span>
             <ChevronRight className="h-4 w-4" />
@@ -163,4 +170,3 @@ export const LevelCompleteModal: React.FC<LevelCompleteModalProps> = ({
     </div>
   );
 };
-

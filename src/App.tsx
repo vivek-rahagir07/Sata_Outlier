@@ -123,7 +123,9 @@ export default function App() {
   };
 
   return (
-    <div
+    <main
+      id="main-content"
+      role="main"
       className={`min-h-screen w-screen overflow-x-hidden bg-[#070a14] text-slate-100 ${
         crtEnabled ? 'scanlines' : ''
       }`}
@@ -268,6 +270,6 @@ export default function App() {
       {showHowToPlay && (
         <HowToPlayModal onClose={() => setShowHowToPlay(false)} />
       )}
-    </div>
+    </main>
   );
 }

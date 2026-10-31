@@ -115,17 +115,21 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
         </div>
         <button
           onClick={onClose}
-          className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white"
+          aria-label="Close CSV Import Dialog"
+          className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-400"
         >
           <X className="h-5 w-5" />
         </button>
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-800 bg-slate-950/50 px-5 text-xs font-semibold">
+      <div className="flex border-b border-slate-800 bg-slate-950/50 px-5 text-xs font-semibold" role="tablist" aria-label="Import Options">
         <button
+          role="tab"
+          aria-selected={activeTab === 'presets'}
+          aria-label="Curated Realistic Presets Tab"
           onClick={() => setActiveTab('presets')}
-          className={`border-b-2 py-3 px-4 transition ${
+          className={`border-b-2 py-3 px-4 transition focus:outline-none focus:ring-2 focus:ring-cyan-400 ${
             activeTab === 'presets'
               ? 'border-cyan-400 text-cyan-400'
               : 'border-transparent text-slate-400 hover:text-white'
@@ -134,8 +138,11 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
           Curated Realistic Presets
         </button>
         <button
+          role="tab"
+          aria-selected={activeTab === 'upload'}
+          aria-label="Upload CSV File Tab"
           onClick={() => setActiveTab('upload')}
-          className={`border-b-2 py-3 px-4 transition ${
+          className={`border-b-2 py-3 px-4 transition focus:outline-none focus:ring-2 focus:ring-cyan-400 ${
             activeTab === 'upload'
               ? 'border-cyan-400 text-cyan-400'
               : 'border-transparent text-slate-400 hover:text-white'
@@ -144,8 +151,11 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
           Upload CSV File
         </button>
         <button
+          role="tab"
+          aria-selected={activeTab === 'paste'}
+          aria-label="Paste Raw CSV Tab"
           onClick={() => setActiveTab('paste')}
-          className={`border-b-2 py-3 px-4 transition ${
+          className={`border-b-2 py-3 px-4 transition focus:outline-none focus:ring-2 focus:ring-cyan-400 ${
             activeTab === 'paste'
               ? 'border-cyan-400 text-cyan-400'
               : 'border-transparent text-slate-400 hover:text-white'

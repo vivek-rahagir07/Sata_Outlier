@@ -547,7 +547,8 @@ export const CybercityMenu: React.FC<CybercityMenuProps> = ({
           <div className="flex items-center gap-3">
             <button
               onClick={onToggleMute}
-              className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 transition ${
+              aria-label={isMuted ? "Unmute audio sound effects" : "Mute audio sound effects"}
+              className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 transition focus:outline-none focus:ring-2 focus:ring-cyan-400 ${
                 isMuted
                   ? 'bg-red-950/60 text-red-400 border border-red-500/40'
                   : 'bg-cyan-950/60 text-cyan-300 border border-cyan-500/40 hover:bg-cyan-900/60'
@@ -560,7 +561,8 @@ export const CybercityMenu: React.FC<CybercityMenuProps> = ({
 
             <button
               onClick={handleToggleBgm}
-              className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 transition ${
+              aria-label={isBgmActive ? "Stop Synthwave Background Music" : "Start Synthwave Background Music"}
+              className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 transition focus:outline-none focus:ring-2 focus:ring-purple-400 ${
                 isBgmActive
                   ? 'bg-purple-950/60 text-purple-300 border border-purple-500/40 shadow-[0_0_10px_rgba(168,85,247,0.4)]'
                   : 'bg-slate-900/60 text-slate-400 border border-slate-700 hover:text-white'
@@ -576,7 +578,8 @@ export const CybercityMenu: React.FC<CybercityMenuProps> = ({
                 audioSynth.playCyberSelect();
                 setActiveModal('sata_auditor');
               }}
-              className="flex items-center gap-1.5 rounded-lg border border-cyan-500/60 bg-cyan-950/70 px-3 py-1.5 text-xs font-arcade font-bold text-cyan-300 hover:bg-cyan-900/80 hover:scale-105 shadow-[0_0_15px_rgba(0,240,255,0.35)] transition cursor-pointer"
+              aria-label="Open Sata Auditor Console and Chore Battles"
+              className="flex items-center gap-1.5 rounded-lg border border-cyan-500/60 bg-cyan-950/70 px-3 py-1.5 text-xs font-arcade font-bold text-cyan-300 hover:bg-cyan-900/80 hover:scale-105 shadow-[0_0_15px_rgba(0,240,255,0.35)] transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400"
               title="Access Sata Chore Battles & Financial Audit Suite"
             >
               <span>⚡</span>
@@ -1244,7 +1247,12 @@ export const CybercityMenu: React.FC<CybercityMenuProps> = ({
 
       {/* 6. FULLY INTEGRATED SATA AUDITOR & CHORE BATTLES SUITE (Directly Inside Cybercity) */}
       {activeModal === 'sata_auditor' && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-3 sm:p-6 animate-in fade-in duration-200">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="sata-auditor-title"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-3 sm:p-6 animate-in fade-in duration-200"
+        >
           <div className="relative w-full max-w-5xl rounded-3xl border border-cyan-500/60 bg-gradient-to-b from-[#0c0620]/95 via-[#080d1e]/95 to-[#040714]/95 p-5 sm:p-7 shadow-[0_0_60px_rgba(0,240,255,0.35)] max-h-[92vh] flex flex-col justify-between overflow-hidden">
             
             {/* Top Bar: Sata Brand, Tabs & Close Button */}
@@ -1255,7 +1263,7 @@ export const CybercityMenu: React.FC<CybercityMenuProps> = ({
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-arcade text-xl font-black tracking-wider text-white drop-shadow-[0_0_10px_#00f0ff]">
+                    <span id="sata-auditor-title" className="font-arcade text-xl font-black tracking-wider text-white drop-shadow-[0_0_10px_#00f0ff]">
                       Sata
                     </span>
                     <span className="rounded-md border border-cyan-500/40 bg-cyan-950/60 px-2 py-0.5 text-[10px] font-mono-code font-bold text-cyan-300">
@@ -1269,13 +1277,16 @@ export const CybercityMenu: React.FC<CybercityMenuProps> = ({
               </div>
 
               {/* Navigation Tabs */}
-              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0" role="tablist" aria-label="Sata Console Sections">
                 <button
+                  role="tab"
+                  aria-selected={sataAuditorTab === 'battles'}
+                  aria-label="Chore Battles section"
                   onClick={() => {
                     audioSynth.playCyberHover();
                     setSataAuditorTab('battles');
                   }}
-                  className={`flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-arcade font-bold transition cursor-pointer ${
+                  className={`flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-arcade font-bold transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-fuchsia-400 ${
                     sataAuditorTab === 'battles'
                       ? 'border border-fuchsia-500 bg-fuchsia-950/70 text-fuchsia-200 shadow-[0_0_15px_rgba(217,70,239,0.4)]'
                       : 'border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-white'
@@ -1286,11 +1297,14 @@ export const CybercityMenu: React.FC<CybercityMenuProps> = ({
                 </button>
 
                 <button
+                  role="tab"
+                  aria-selected={sataAuditorTab === 'dashboard'}
+                  aria-label="Audit Dashboard section"
                   onClick={() => {
                     audioSynth.playCyberHover();
                     setSataAuditorTab('dashboard');
                   }}
-                  className={`flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-arcade font-bold transition cursor-pointer ${
+                  className={`flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-arcade font-bold transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400 ${
                     sataAuditorTab === 'dashboard'
                       ? 'border border-cyan-500 bg-cyan-950/70 text-cyan-200 shadow-[0_0_15px_rgba(0,240,255,0.4)]'
                       : 'border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-white'
@@ -1301,11 +1315,14 @@ export const CybercityMenu: React.FC<CybercityMenuProps> = ({
                 </button>
 
                 <button
+                  role="tab"
+                  aria-selected={sataAuditorTab === 'import'}
+                  aria-label="Import Statements section"
                   onClick={() => {
                     audioSynth.playCyberHover();
                     setSataAuditorTab('import');
                   }}
-                  className={`flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-arcade font-bold transition cursor-pointer ${
+                  className={`flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-arcade font-bold transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-pink-400 ${
                     sataAuditorTab === 'import'
                       ? 'border border-pink-500 bg-pink-950/70 text-pink-200 shadow-[0_0_15px_rgba(236,72,153,0.4)]'
                       : 'border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-white'
@@ -1316,11 +1333,14 @@ export const CybercityMenu: React.FC<CybercityMenuProps> = ({
                 </button>
 
                 <button
+                  role="tab"
+                  aria-selected={sataAuditorTab === 'history'}
+                  aria-label="Transaction History section"
                   onClick={() => {
                     audioSynth.playCyberHover();
                     setSataAuditorTab('history');
                   }}
-                  className={`flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-arcade font-bold transition cursor-pointer ${
+                  className={`flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-arcade font-bold transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-400 ${
                     sataAuditorTab === 'history'
                       ? 'border border-amber-500 bg-amber-950/70 text-amber-200 shadow-[0_0_15px_rgba(245,158,11,0.4)]'
                       : 'border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-white'
@@ -1336,7 +1356,8 @@ export const CybercityMenu: React.FC<CybercityMenuProps> = ({
                     audioSynth.playCyberBack();
                     setActiveModal(null);
                   }}
-                  className="ml-2 flex h-8 w-8 items-center justify-center rounded-xl border border-slate-700 bg-slate-900/80 text-slate-400 hover:bg-white/10 hover:text-white transition cursor-pointer"
+                  aria-label="Close Sata Console"
+                  className="ml-2 flex h-8 w-8 items-center justify-center rounded-xl border border-slate-700 bg-slate-900/80 text-slate-400 hover:bg-white/10 hover:text-white transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400"
                   title="Close Sata Console"
                 >
                   <X className="h-4 w-4" />

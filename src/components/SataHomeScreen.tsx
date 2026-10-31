@@ -94,7 +94,8 @@ export const SataHomeScreen: React.FC<SataHomeScreenProps> = ({
               audioSynth.playCyberHover();
               onNavigate('dashboard');
             }}
-            className="hidden sm:flex items-center gap-1.5 rounded-xl border border-slate-800 bg-slate-900/80 px-3.5 py-2 text-xs font-arcade font-bold text-slate-200 hover:border-cyan-500/50 hover:bg-slate-800 hover:text-cyan-300 transition"
+            aria-label="Open Audit Dashboard"
+            className="hidden sm:flex items-center gap-1.5 rounded-xl border border-slate-800 bg-slate-900/80 px-3.5 py-2 text-xs font-arcade font-bold text-slate-200 hover:border-cyan-500/50 hover:bg-slate-800 hover:text-cyan-300 transition focus:outline-none focus:ring-2 focus:ring-cyan-400"
           >
             <BarChart3 className="h-4 w-4 text-cyan-400" />
             <span>DASHBOARD</span>
@@ -105,7 +106,8 @@ export const SataHomeScreen: React.FC<SataHomeScreenProps> = ({
               audioSynth.playCyberHover();
               onNavigate('import_data');
             }}
-            className="hidden sm:flex items-center gap-1.5 rounded-xl border border-slate-800 bg-slate-900/80 px-3.5 py-2 text-xs font-arcade font-bold text-slate-200 hover:border-pink-500/50 hover:bg-slate-800 hover:text-pink-300 transition"
+            aria-label="Import Financial Statements"
+            className="hidden sm:flex items-center gap-1.5 rounded-xl border border-slate-800 bg-slate-900/80 px-3.5 py-2 text-xs font-arcade font-bold text-slate-200 hover:border-pink-500/50 hover:bg-slate-800 hover:text-pink-300 transition focus:outline-none focus:ring-2 focus:ring-pink-400"
           >
             <UploadCloud className="h-4 w-4 text-pink-400" />
             <span>IMPORT DATA</span>
@@ -116,7 +118,8 @@ export const SataHomeScreen: React.FC<SataHomeScreenProps> = ({
               audioSynth.playCyberHover();
               onNavigate('history');
             }}
-            className="hidden md:flex items-center gap-1.5 rounded-xl border border-slate-800 bg-slate-900/80 px-3 py-2 text-xs font-mono-code font-semibold text-slate-300 hover:border-cyan-500/50 hover:text-white transition"
+            aria-label="View Transaction Execution History"
+            className="hidden md:flex items-center gap-1.5 rounded-xl border border-slate-800 bg-slate-900/80 px-3 py-2 text-xs font-mono-code font-semibold text-slate-300 hover:border-cyan-500/50 hover:text-white transition focus:outline-none focus:ring-2 focus:ring-cyan-400"
           >
             <Clock className="h-4 w-4 text-cyan-400" />
             <span>History</span>
@@ -124,7 +127,8 @@ export const SataHomeScreen: React.FC<SataHomeScreenProps> = ({
 
           <button
             onClick={onOpenHowToPlay}
-            className="flex items-center gap-1.5 rounded-xl border border-slate-800 bg-slate-900/80 px-3 py-2 text-xs font-mono-code font-semibold text-slate-300 hover:border-purple-500/50 hover:text-white transition"
+            aria-label="Open Gameplay Guide and Tutorials"
+            className="flex items-center gap-1.5 rounded-xl border border-slate-800 bg-slate-900/80 px-3 py-2 text-xs font-mono-code font-semibold text-slate-300 hover:border-purple-500/50 hover:text-white transition focus:outline-none focus:ring-2 focus:ring-purple-400"
           >
             <HelpCircle className="h-4 w-4 text-purple-400" />
             <span>Guide</span>
@@ -132,7 +136,8 @@ export const SataHomeScreen: React.FC<SataHomeScreenProps> = ({
 
           <button
             onClick={onToggleMute}
-            className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-800 bg-slate-900/80 text-slate-300 hover:border-cyan-500/50 hover:text-white transition"
+            aria-label={isMuted ? "Unmute audio sound effects" : "Mute audio sound effects"}
+            className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-800 bg-slate-900/80 text-slate-300 hover:border-cyan-500/50 hover:text-white transition focus:outline-none focus:ring-2 focus:ring-cyan-400"
             title="Audio Toggle"
           >
             {isMuted ? <VolumeX className="h-4 w-4 text-slate-500" /> : <Volume2 className="h-4 w-4 text-cyan-400" />}
@@ -224,7 +229,8 @@ export const SataHomeScreen: React.FC<SataHomeScreenProps> = ({
 
             <button
               onClick={() => handleLaunchGame('scatter_queen')}
-              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-fuchsia-600 via-pink-600 to-purple-600 py-3.5 text-xs font-arcade font-black text-white shadow-[0_0_20px_rgba(217,70,239,0.5)] hover:scale-[1.02] active:scale-95 transition"
+              aria-label="Launch 3D Starfighter Scatter Queen game"
+              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-fuchsia-600 via-pink-600 to-purple-600 py-3.5 text-xs font-arcade font-black text-white shadow-[0_0_20px_rgba(217,70,239,0.5)] hover:scale-[1.02] active:scale-95 transition focus:outline-none focus:ring-2 focus:ring-pink-400"
             >
               <span>LAUNCH 3D STARFIGHTER</span>
               <ChevronRight className="h-4 w-4" />
@@ -278,7 +284,8 @@ export const SataHomeScreen: React.FC<SataHomeScreenProps> = ({
 
             <button
               onClick={() => handleLaunchGame('bullet_sweeper')}
-              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-cyan-600 via-teal-600 to-cyan-500 py-3.5 text-xs font-arcade font-black text-white shadow-[0_0_20px_rgba(0,240,255,0.4)] hover:scale-[1.02] active:scale-95 transition"
+              aria-label="Launch 2D Audit Sweeper starfighter game"
+              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-cyan-600 via-teal-600 to-cyan-500 py-3.5 text-xs font-arcade font-black text-white shadow-[0_0_20px_rgba(0,240,255,0.4)] hover:scale-[1.02] active:scale-95 transition focus:outline-none focus:ring-2 focus:ring-cyan-400"
             >
               <span>LAUNCH AUDIT SWEEPER</span>
               <ChevronRight className="h-4 w-4" />
@@ -329,7 +336,8 @@ export const SataHomeScreen: React.FC<SataHomeScreenProps> = ({
 
             <button
               onClick={() => handleLaunchGame('ledger_blade')}
-              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 py-3.5 text-xs font-arcade font-black text-white shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:scale-[1.02] active:scale-95 transition"
+              aria-label="Launch Ledger Blade 4-lane rhythm game"
+              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 py-3.5 text-xs font-arcade font-black text-white shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:scale-[1.02] active:scale-95 transition focus:outline-none focus:ring-2 focus:ring-emerald-400"
             >
               <span>LAUNCH LEDGER BLADE</span>
               <ChevronRight className="h-4 w-4" />
@@ -380,7 +388,8 @@ export const SataHomeScreen: React.FC<SataHomeScreenProps> = ({
 
             <button
               onClick={() => handleLaunchGame('cyber_court')}
-              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-500 py-3.5 text-xs font-arcade font-black text-white shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:scale-[1.02] active:scale-95 transition"
+              aria-label="Launch Cyber-Court Anime Tribunal game"
+              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-500 py-3.5 text-xs font-arcade font-black text-white shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:scale-[1.02] active:scale-95 transition focus:outline-none focus:ring-2 focus:ring-purple-400"
             >
               <span>LAUNCH CYBER-COURT</span>
               <ChevronRight className="h-4 w-4" />
@@ -401,28 +410,32 @@ export const SataHomeScreen: React.FC<SataHomeScreenProps> = ({
           <div className="flex items-center gap-4">
             <button
               onClick={() => onNavigate('dashboard')}
-              className="hover:text-cyan-300 transition"
+              aria-label="Navigate to Audit Dashboard"
+              className="hover:text-cyan-300 transition focus:outline-none focus:ring-1 focus:ring-cyan-400 rounded px-1"
             >
               Audit Dashboard
             </button>
             <span>•</span>
             <button
               onClick={() => onNavigate('import_data')}
-              className="hover:text-pink-300 transition"
+              aria-label="Navigate to Import Statements"
+              className="hover:text-pink-300 transition focus:outline-none focus:ring-1 focus:ring-pink-400 rounded px-1"
             >
               Import Statements
             </button>
             <span>•</span>
             <button
               onClick={() => onNavigate('history')}
-              className="hover:text-white transition"
+              aria-label="Navigate to Execution History"
+              className="hover:text-white transition focus:outline-none focus:ring-1 focus:ring-white rounded px-1"
             >
               Execution History
             </button>
             <span>•</span>
             <button
               onClick={onOpenHowToPlay}
-              className="hover:text-purple-300 transition"
+              aria-label="Open How to Play modal"
+              className="hover:text-purple-300 transition focus:outline-none focus:ring-1 focus:ring-purple-400 rounded px-1"
             >
               How to Play
             </button>

@@ -458,6 +458,15 @@ export const SAMPLE_DATASETS: Record<string, { name: string; description: string
   }
 };
 
+export function sanitizeField(input: string): string {
+  if (!input) return '';
+  const clean = input.replace(/<[^>]*>?/gm, '').trim();
+  if (/^[=+\-@\t\r]/.test(clean)) {
+    return `'${clean}`;
+  }
+  return clean;
+}
+
 export function parseCSVToExpenses(csvText: string): ExpenseItem[] {
   const lines = csvText.split(/\r?\n/).filter(line => line.trim().length > 0);
   if (lines.length < 2) return [];
@@ -482,11 +491,18 @@ export function parseCSVToExpenses(csvText: string): ExpenseItem[] {
 
     if (cleanRow.length <= Math.max(dateIdx, merchantIdx, amountIdx)) continue;
 
-    const date = cleanRow[dateIdx] || new Date().toISOString().split('T')[0];
-    const merchant = cleanRow[merchantIdx] || `Expense #${i}`;
+    const rawDate = cleanRow[dateIdx] || new Date().toISOString().split('T')[0];
+    const rawMerchant = cleanRow[merchantIdx] || `Expense #${i}`;
     const rawAmount = cleanRow[amountIdx] || '0';
-    const amount = Math.abs(parseFloat(rawAmount.replace(/[^0-9.-]+/g, ''))) || 0;
-    const originalCategory = categoryIdx !== -1 ? cleanRow[categoryIdx] : 'Uncategorized';
+    const rawCategory = categoryIdx !== -1 ? cleanRow[categoryIdx] : 'Uncategorized';
+
+    const date = sanitizeField(rawDate);
+    const merchant = sanitizeField(rawMerchant);
+    const originalCategory = sanitizeField(rawCategory);
+
+    const numericClean = rawAmount.replace(/[^0-9.-]+/g, '');
+    const parsedAmount = Math.abs(parseFloat(numericClean));
+    const amount = isFinite(parsedAmount) && parsedAmount > 0 ? Number(parsedAmount.toFixed(2)) : 0;
 
     if (amount === 0) continue;
 
