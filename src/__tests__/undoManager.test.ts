@@ -39,3 +39,4 @@ describe('UndoManager Journal System', () => {
     expect(undoManager.getHistoryCount()).toBe(0);
   });
 });
+

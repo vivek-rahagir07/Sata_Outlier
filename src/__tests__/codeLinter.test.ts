@@ -14,3 +14,4 @@ describe('CodeLinter Engine Detection', () => {
     }).toThrow('Directory does not exist');
   });
 });
+

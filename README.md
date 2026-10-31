@@ -142,3 +142,4 @@ As you play, the **Audit Dashboard** aggregates live business metrics:
 
 ## 📜 License
 MIT License © 2026 SATA Team. Built for the Hack2Skill Hackathon.
+
