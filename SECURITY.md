@@ -79,3 +79,4 @@ Automated security regression tests run on every commit (`npm test`) to guarante
 - [x] Input sanitization against CSV Injection & XSS
 - [x] Path traversal guards in file system engines
 - [x] Express Helmet and Rate Limiting active
+
