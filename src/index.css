@@ -139,15 +139,16 @@
 .cyber-hud-glass {
   background: linear-gradient(
     90deg,
-    rgba(15, 10, 35, 0.75) 0%,
-    rgba(25, 12, 50, 0.6) 50%,
-    rgba(35, 15, 65, 0.35) 85%,
+    rgba(8, 4, 18, 0.95) 0%,
+    rgba(14, 7, 28, 0.88) 55%,
+    rgba(20, 10, 42, 0.65) 85%,
+    rgba(25, 12, 50, 0.2) 96%,
     transparent 100%
   );
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-right: 1px solid rgba(0, 240, 255, 0.25);
-  box-shadow: 10px 0 35px rgba(0, 0, 0, 0.6);
+  box-shadow: 15px 0 45px rgba(0, 0, 0, 0.75);
 }
 
 /* Active Menu Item Pill - exactly matches the reference image */

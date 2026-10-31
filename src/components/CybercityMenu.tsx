@@ -432,7 +432,7 @@ export const CybercityMenu: React.FC<CybercityMenuProps> = ({
       />
 
       {/* LEFT GLASSMORPHIC HUD STRIP & MENU */}
-      <div className="relative z-20 flex min-h-screen w-full max-w-2xl flex-col justify-between cyber-hud-glass px-8 py-10 sm:px-14 sm:py-14 md:w-[48%] lg:w-[42%]">
+      <div className="relative z-20 flex h-screen w-full max-w-2xl flex-col justify-between cyber-hud-glass px-6 py-6 sm:px-12 sm:py-8 md:w-[48%] lg:w-[42%] overflow-hidden">
         
         {/* Top Header: Logo + Edition */}
         <div className="pt-2 sm:pt-6">
